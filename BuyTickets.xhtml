@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Buy Tickets</title>
+         <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+        <div class="container">            
+            <h1>AMC Theators</h1>                  
+                <nav>
+                    <ul>
+                        <li>
+                            <h:link  outcome="ShowDescription.xhtml" value="Back to Description">
+                                <f:param name="theatorid" value="#{showDescriptionBean.theator.theatorid}" />
+                                <f:param name="movieid" value="#{showDescriptionBean.movie.movieid}" />
+                            </h:link>
+                        </li>
+                    </ul>
+                </nav>
+        </div>
+        <div class="showMovie">
+            <h:graphicImage value="/resources/images/#{showDescriptionBean.movieName}.jpg" alt="Image not found"></h:graphicImage>
+            <div class="mid">      
+                <h:dataTable value="#{showDescriptionBean.description}" var="description">
+                    <h:column>
+                        <f:facet name="header">
+                            <h1>#{showDescriptionBean.movieName}</h1>
+                        </f:facet>
+                        <h2><h:outputText value="#{description}" /></h2>                        
+                    </h:column> 
+                </h:dataTable>                      
+            </div>
+        </div>
+        <div class="showTickets">
+            <h1>Buy Tickets</h1>
+            <div class="ticket">
+                <h:dataTable value="#{buyTicketsBean.movieTimeList}" var="movietime">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Movie Date" />
+                        </f:facet>
+                        <h:outputText value="#{movietime.moviedate}" styleClass="md" >
+                            <f:convertDateTime type="date" pattern="EEEE,dd/MM/yyyy" />
+                        </h:outputText>            
+                    </h:column> 
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Show Time" />
+                        </f:facet>
+                        <div class="popup" onclick="myFunction()">
+                            <h:outputText value="#{movietime.startat}" styleClass="md">
+                                <f:convertDateTime type="time" dateStyle="full"/>
+                            </h:outputText>
+                            <span class="popuplayer" id="myPopup">
+                                <div class="popuptext">
+                                    <h:graphicImage value="/resources/images/AMC.PNG" alt="Image not found"></h:graphicImage>
+                                    <h:outputText value="#{showTheatorBean.getTheatorByID(showMovieBean.parameter)}" styleClass="st_theator"></h:outputText>
+                                    <h:outputText value="#{movietime.moviedate}" styleClass="st_pop">
+                                        <f:convertDateTime type="date" pattern="EEEE,dd/MM/yyyy" />
+                                    </h:outputText> 
+                               
+                                    <p>AMC provides closed captioning for all movies that offer 
+                                        that capability, with availability depending on the studio 
+                                        or production company.</p>
+                                    <h:link value="Continue" styleClass="pop_button" outcome="ConfirmBuying.xhtml">
+                                        <f:param name="theatorid" value="#{showDescriptionBean.theator.theatorid}" />
+                                        <f:param name="movieid" value="#{showDescriptionBean.movie.movieid}" />
+                                        <f:param name="timeid" value="#{movietime.movietimePK.timeid}"/>
+                                    </h:link>
+                                    <h:commandButton value="Back" styleClass="pop_button"></h:commandButton>
+                                </div>                            
+                            </span>
+                        </div>
+                    </h:column> 
+                </h:dataTable>
+            </div>
+        </div>
+</h:form>
+    </h:body>
+    <script>
+        function myFunction(){
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
+        }
+    </script>
+</html>
+

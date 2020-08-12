@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Receipt</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+        <div class="container">            
+            <h1>AMC Theators</h1>                  
+            <nav>
+                <ul>
+                    <li>
+                        <a href="MainPage.xhtml">Home</a>
+                    </li>
+                    <li>
+                        <div class="find">
+                            <a>Find a Theatre</a>
+                        </div>
+                        <div class="hide">        
+                            <h:form>
+                                <h:dataTable value="#{mainPageBean.zipcodeList}" var="zipcode">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Zipcode" />
+                                        </f:facet>
+                                        <h:outputText value="#{zipcode}" />
+                                    </h:column>
+                                </h:dataTable>
+                            </h:form>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </h:body>
+</html>
+

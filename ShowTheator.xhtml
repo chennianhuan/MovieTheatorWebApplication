@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Show Theators</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <h1>AMC Theators</h1>
+            <nav>
+                <li>
+                    <h:link  outcome="MainPage" value="Home"/>
+                </li>       
+                <li>
+                    <div class="find"> 
+                        <a>Select a Theatre</a>
+                    </div>
+                    <div class="hide"> 
+                        <h:form>
+                            <h:dataTable value="#{showTheatorBean.theatorList}" var="theator">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Select" />
+                                    </f:facet>
+                                    <h:link value="Show" outcome="ShowMovie">
+                                        <f:param name="theatorid" value="#{theator.theatorid}" />
+                                    </h:link>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Theator ID" />
+                                    </f:facet>
+                                        <h:outputText value="#{theator.theatorid}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Theator Name" />
+                                    </f:facet>
+                                    <h:outputText value="#{theator.theatorname}" />
+                                </h:column>               
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                </li>
+            </nav>
+        </div>
+    </h:body>
+</html>
+

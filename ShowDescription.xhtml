@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Show Description</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+        <div class="container">            
+            <h1>AMC Theators</h1>                  
+                <nav>
+                    <ul>
+                        <li>
+                            <h:link  outcome="ShowMovie.xhtml" value="Back to Movies">
+                                <f:param name="theatorid" value="#{showMovieBean.parameter}" />
+                            </h:link>
+                        </li>
+                        <li>
+                            <h:link  outcome="BuyTickets.xhtml" value="Buy Tickets">
+                                <f:param name="theatorid" value="#{showMovieBean.parameter}" />
+                                <f:param name="movieid" value="#{showDescriptionBean.movie.movieid}"/>
+                            </h:link>                        
+                        </li>
+                    </ul>
+                </nav>
+            </div>     
+        <section id="movieDetail">
+            <div class="mid">      
+                <h:dataTable value="#{showDescriptionBean.description}" var="description">
+                    <h:column>
+                        <f:facet name="header">
+<!--                            <h:outputText value="#{showDescriptionBean.movieName}" />-->
+                            <h1>#{showDescriptionBean.movieName}</h1>
+                        </f:facet>
+                        <h2><h:outputText value="#{description}" /></h2>
+                        <h:graphicImage value="/resources/images/#{showDescriptionBean.movieName}.jpg" alt="Image not found"></h:graphicImage>
+                    </h:column> 
+                </h:dataTable>                      
+            </div>
+        </section>          
+    </h:body>
+</html>
+

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Confirm Buying</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>      
+        <div class="container">            
+            <h1>AMC Theators</h1>                                        
+                <nav>
+                    <ul>
+                        <div class="conTheator">
+                            <li>
+                                <h:outputText value="#{showTheatorBean.getTheatorByID(confirmBuyingBean.theator.theatorid)}"/>
+                            </li>
+                        </div>
+                        <li>
+                            <h:link  outcome="BuyTickets.xhtml" value="Back to Showtime">
+                                <f:param name="theatorid" value="#{confirmBuyingBean.theator.theatorid}" />
+                                <f:param name="movieid" value="#{confirmBuyingBean.movie.movieid}" />
+                            </h:link>
+                        </li>       
+                    </ul>
+                </nav>
+        </div>
+        <div class="main-head">
+            <h1>You Have Selected
+                <span>
+                    <h:graphicImage value="/resources/images/lock.png" alt="Image not found"></h:graphicImage>
+                </span>              
+            </h1>
+        </div>
+        <div class="movie-info-content">
+            <h:panelGrid columns="1" cellspacing="4" cellpadding="4">      
+                <h:outputText value="Movie:" styleClass="movie-info-st"/>
+                <h:outputText value="#{buyTicketsBean.movieName}" styleClass="movie-info-md" >
+                </h:outputText>                
+                <h:outputText value="Date:" styleClass="movie-info-st"/>               
+                <h:outputText value="#{confirmBuyingBean.selectedMovietime.moviedate}" styleClass="movie-info-md" >
+                    <f:convertDateTime type="date" pattern="EEEE,dd/MM/yyyy" />
+                </h:outputText>                               
+                <h:outputText value="Show Time:" styleClass="movie-info-st"/>               
+                <h:outputText value="#{confirmBuyingBean.selectedMovietime.startat}" styleClass="movie-info-md">
+                    <f:convertDateTime type="time" dateStyle="full"/>
+                </h:outputText>                   
+               <p>For your safety, social distancing measures have been put into place
+            so that groups cannot book seats within 6ft of each other.</p>
+            </h:panelGrid>              
+        </div>
+        <div class="ticket-info">
+            <h:form id="formId">
+                <h:panelGrid columns="3" cellspacing="2" cellpadding="4">
+                    <h:outputText value="Ticket Per Person: " />
+                    <h:outputLabel value="$10"/>
+                    <h:panelGroup/>
+                    <h:outputText value="Enter Number of Tickets:"/>
+                    <h:inputText p:placeholder="Enter Number of Seats" id="seats" onchange="Calculate()" >  
+                        <f:convertNumber integerOnly="true"/>
+                    </h:inputText>
+                    <h:message for="seats"/>
+                    <h:outputText value="Order Total: "/>
+                    <h:outputText id="total" />                   
+                    <h:panelGroup/>
+                    <h:outputLabel value="Enter Card Number: "/>
+                    <h:inputText value="#{receiptBean.creditcard}" id="creditcard" validator="#{receiptBean.validateCreditCard}" ></h:inputText>
+                    <h:message for="creditcard"/>
+                    <f:facet name = "footer">
+                        <h:panelGroup style = "display:block">
+                            <h:commandButton styleClass="purchase" value = "Purchase" action="Receipt.xhtml" />
+                        </h:panelGroup>
+                    </f:facet>
+                </h:panelGrid>
+                <p><h:messages/></p>
+            </h:form>
+        </div>
+    </h:body>
+    <script>
+        function Calculate(){
+            var seats = parseInt(document.getElementById("formId:seats").value);
+            document.getElementById("formId:total").innerHTML = "$" + seats * 10;
+        }
+    </script>
+</html>
+

@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Show Movie</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+        <div class="container">            
+            <h1>AMC Theators</h1>
+                <nav>
+                <ul>
+                    <li>
+                        <h:link  outcome="ShowTheator" value="Back to Theator">
+                            <f:param name="zipcode" value="#{showMovieBean.findZipcode()}" />
+                        </h:link>
+                    </li> 
+                    <li>
+                        <div class="find">
+                            <a>See a Movie</a>
+                        </div>
+                        <div class="hide"> 
+                            <h:form>
+                                <h:dataTable value="#{showMovieBean.movieList}" var="movie">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Select" />
+                                        </f:facet>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Movie ID" />
+                                        </f:facet>
+                                        <h:outputLink value ="ShowDescription.xhtml">
+                                            <h:outputText value="#{movie.movieid}" />
+                                            <f:param name="movieid" value="#{movie.movieid}" />
+                                            <f:param name="theatorid" value="#{showMovieBean.parameter}"/>
+                                        </h:outputLink>                                                                       
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Movie Name" />
+                                        </f:facet>                   
+                                        <h:outputLink value ="ShowDescription.xhtml">
+                                            <h:outputText value="#{movie.moviename}" />
+                                            <f:param name="movieid" value="#{movie.movieid}" />
+                                            <f:param name="theatorid" value="#{showMovieBean.parameter}"/>
+                                        </h:outputLink> 
+                                    </h:column> 
+                                </h:dataTable>
+                            </h:form> 
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="movie-pic">
+            <h:panelGrid columns="3" cellspacing="4" cellpadding="4">
+                <c:forEach items="#{showMovieBean.movieList}" var="moviepic">
+                    <h:panelGroup>
+                        <h:graphicImage value="/resources/images/#{moviepic.moviename}.jpg" alt="Image not found"></h:graphicImage>
+                        <h:outputLink styleClass="moviepic-link" value ="ShowDescription.xhtml">
+                            <h:outputText styleClass="moviepic-link" value="#{moviepic.moviename}" />
+                            <f:param name="movieid" value="#{moviepic.movieid}" />
+                            <f:param name="theatorid" value="#{showMovieBean.parameter}"/>
+                        </h:outputLink> 
+                    </h:panelGroup>
+                </c:forEach>
+            </h:panelGrid>
+        </div>
+    </h:body>
+</html>
+

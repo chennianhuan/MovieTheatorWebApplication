@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>AMC Theators | Welcome</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>   
+        <div class="container">            
+            <h1>AMC Theators</h1>                  
+            <nav>
+                <ul>
+                    <li>
+                        <a href="MainPage.xhtml">Home</a>
+                    </li>
+                    <li>
+                        <div class="find">
+                            <a>Find a Theatre</a>
+                        </div>
+                        <div class="hide">        
+                            <h:form>
+                                <h:dataTable value="#{mainPageBean.zipcodeList}" var="zipcode">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Zipcode" />
+                                        </f:facet>
+                                        <h:outputText value="#{zipcode}" />
+                                    </h:column>
+                                </h:dataTable>
+                            </h:form>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        
+        <section id="showcase">
+            <div class="mid">
+                <h:form id="zip-form">
+                    <h:inputText p:placeholder="Enter a Zipcode" id="zip" value="#{showTheatorBean.zipcode}" validator="#{mainPageBean.validateZipcode}"   />                               
+                <h:commandButton value="Search" action="ShowTheator"/>
+                <h:message for="zip" errorClass="messages-error"/>
+                </h:form>
+                <h1>Welcome to the AMC Movies</h1>
+                <p>We love movies so much that we created a movie-going experience unlike any other. 
+                    The best part about seeing a movie with us is the plush recliner that allows you 
+                    to kick back and relax while enjoying your movie on a wall-to-wall screen. 
+                    AMC makes the movies better.
+                </p>       
+            </div>
+        </section>
+        
+        <section id="newsletter">
+            <div class="map">
+                <h:graphicImage library="images" name="image2.PNG" id="image2"/>
+            </div>            
+            <div class="news">
+                <h1>Subscribe To Our Newsletter</h1>                
+                <p>Be the first to know about movie ticket pre-orders, special events, and contests.</p>
+                    <input type="email" placeholder="Enter Email..."/>
+                    <button type="submit" class="button_1">Subscribe</button>
+            </div>                
+        </section>
+    </h:body>
+</html>
+
